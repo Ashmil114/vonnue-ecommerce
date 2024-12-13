@@ -4,13 +4,17 @@ type Signup = {
   user: string;
   token: { refresh: string; access: string };
 };
-export const signup = () => {
+export const signup = (props: {
+  name: string;
+  email: string;
+  password: string;
+}) => {
   return new Promise<Signup>((res, rej) => {
     api
       .post("/customer/signup", {
-        name: "John Doe",
-        email: "john.doe@example.com",
-        password: "password123",
+        name: props.name,
+        email: props.email,
+        password: props.password,
       })
       .then((response) => {
         res(response.data);

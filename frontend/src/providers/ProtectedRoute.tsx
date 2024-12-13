@@ -4,8 +4,9 @@ import { ReactNode } from "react";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const token = useUser((state) => state.token);
+
   if (!token) {
-    return <Navigate to={"/login"} />;
+    return <Navigate to={"/auth"} />;
   }
 
   return children;

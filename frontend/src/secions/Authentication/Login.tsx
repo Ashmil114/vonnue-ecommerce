@@ -1,21 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signup } from "../../api/auth.api";
 // import { useNavigate } from "react-router-dom";
 import { useUser } from "../../store/userStore";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [newuser, setNewuser] = useState(false);
-  const { setToken } = useUser();
+  const { token, setToken } = useUser();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  });
   const loginHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("login");
   };
   const signupHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signup()
+    // console.log(e.target[0]);
+    // TODO CHANGE DATA TO FORM DATA VALUES
+    const data = {
+      name: "ash",
+      email: "",
+      password: "",
+    };
+    signup(data)
       .then((res) => {
         console.log(res);
         setToken(res.token);
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
@@ -47,6 +62,7 @@ function Login() {
                   type="text"
                   placeholder="Name"
                   className="input input-bordered"
+                  name="name"
                   required
                 />
               </div>
@@ -59,6 +75,7 @@ function Login() {
                 type="email"
                 placeholder="email"
                 className="input input-bordered"
+                name="email"
                 required
               />
             </div>
@@ -70,6 +87,7 @@ function Login() {
                 type="password"
                 placeholder="password"
                 className="input input-bordered"
+                name="password"
                 required
               />
               <label className="label">

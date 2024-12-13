@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 type Token = {
   access: string;
   refresh: string;
@@ -10,14 +11,19 @@ type UserStore = {
   clearToken: () => void;
 };
 
-export const useUser = create<UserStore>((set) => {
-  return {
-    token: null,
-    setToken: (token) => {
-      set({ token });
+export const useUser = create<UserStore>()(
+  persist(
+    (set) => {
+      return {
+        token: null,
+        setToken: (token) => {
+          set({ token });
+        },
+        clearToken: () => {
+          set({ token: null });
+        },
+      };
     },
-    clearToken: () => {
-      set({ token: null });
-    },
-  };
-});
+    { name: "token" }
+  )
+);
