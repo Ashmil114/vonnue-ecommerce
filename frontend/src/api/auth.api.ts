@@ -4,6 +4,7 @@ type Signup = {
   user: string;
   token: { refresh: string; access: string };
 };
+
 export const signup = (props: {
   name: string;
   email: string;
@@ -21,6 +22,22 @@ export const signup = (props: {
       })
       .catch((err) => {
         rej(err.response.data);
+      });
+  });
+};
+
+export const login = (props: { email: string; password: string }) => {
+  return new Promise<Signup>((resolve, reject) => {
+    api
+      .post("/customer/login", {
+        email: props.email,
+        password: props.password,
+      })
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((err) => {
+        reject(err.response.data);
       });
   });
 };

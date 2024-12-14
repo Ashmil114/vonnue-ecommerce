@@ -1,32 +1,54 @@
 import { useEffect, useState } from "react";
-import { signup } from "../../api/auth.api";
+import { login, signup } from "../../api/auth.api";
 // import { useNavigate } from "react-router-dom";
 import { useUser } from "../../store/userStore";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { signupSchema, SignupSchema } from "../../validations/auth.validation";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 function Login() {
   const [newuser, setNewuser] = useState(false);
   const { token, setToken } = useUser();
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<SignupSchema>({
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+    resolver: zodResolver(signupSchema),
+  });
+
   useEffect(() => {
     if (token) {
       navigate("/");
     }
   });
-  const loginHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("login");
+  useEffect(() => {
+    if (!newuser) {
+      setValue("name", "xyz");
+    } else setValue("name", "");
+  }, [newuser, setValue]);
+  const loginHandler = (values: SignupSchema) => {
+    login({ email: values.email, password: values.password })
+      .then((res) => {
+        console.log(res);
+        setToken(res.token);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-  const signupHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // console.log(e.target[0]);
-    // TODO CHANGE DATA TO FORM DATA VALUES
-    const data = {
-      name: "ash",
-      email: "",
-      password: "",
-    };
-    signup(data)
+
+  const signupHandler = (values: SignupSchema) => {
+    signup(values)
       .then((res) => {
         console.log(res);
         setToken(res.token);
@@ -51,7 +73,9 @@ function Login() {
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
           <form
             className="card-body"
-            onSubmit={newuser ? signupHandler : loginHandler}
+            onSubmit={
+              newuser ? handleSubmit(signupHandler) : handleSubmit(loginHandler)
+            }
           >
             {newuser && (
               <div className="form-control">
@@ -59,12 +83,15 @@ function Login() {
                   <span className="label-text">Name</span>
                 </label>
                 <input
+                  {...register("name")}
                   type="text"
                   placeholder="Name"
                   className="input input-bordered"
-                  name="name"
-                  required
                 />
+
+                {errors.name && (
+                  <p className="text-red-500">{errors.name.message}</p>
+                )}
               </div>
             )}
             <div className="form-control">
@@ -72,11 +99,10 @@ function Login() {
                 <span className="label-text">Email</span>
               </label>
               <input
+                {...register("email")}
                 type="email"
                 placeholder="email"
                 className="input input-bordered"
-                name="email"
-                required
               />
             </div>
             <div className="form-control">
@@ -84,11 +110,10 @@ function Login() {
                 <span className="label-text">Password</span>
               </label>
               <input
+                {...register("password")}
                 type="password"
                 placeholder="password"
                 className="input input-bordered"
-                name="password"
-                required
               />
               <label className="label">
                 <label className="label">
