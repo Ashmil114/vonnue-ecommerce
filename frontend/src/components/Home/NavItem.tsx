@@ -25,9 +25,13 @@ const NavItem = (props: NavItem) => {
                   props.extra ? props.extra : "text-secondary"
                 }`}
               />
-              <span className="badge badge-sm indicator-item bg-primary-bg text-secondary">
-                {props.indicatorCount}
-              </span>
+              {props.indicatorCount
+                ? props.indicatorCount > 0 && (
+                    <span className="badge badge-sm indicator-item bg-primary text-white p-[10px]">
+                      {props.indicatorCount}
+                    </span>
+                  )
+                : ""}
             </div>
             <span
               className={`pb-[1px] text-[16px] max-sm:hidden ${
