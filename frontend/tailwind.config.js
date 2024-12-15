@@ -4,17 +4,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
-          dark: "#1a357a",
-          light: "#e8eeff",
-          medium: "#5571bb",
-        },
-        secondary: {
-          "ex-light": "#bbbcbd",
-          light: "#8a8a8a",
-          medium: "#343434",
-          dark: "#1a1a1a",
-        },
+        primary: "#3bb77e",
+        "primary-accent": "#29a56c",
+        "primary-bg": "#def9ec",
+        secondary: "#253d4e",
+        "secondary-content": "#adadad",
+        "accent-yellow": "#fdc040",
+        "accent-red": "#dc2626",
+      },
+      fontFamily: {
+        quicksand: ["Quicksand", "sans-serif"],
+      },
+      fontWeight: {
+        DEFAULT: 400,
+        light: 300,
+        regular: 400,
+        medium: 500,
+        semibold: 600,
+        bold: 700,
       },
     },
   },

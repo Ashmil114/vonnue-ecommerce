@@ -12,7 +12,7 @@ const AxiosProvider = ({ children }: { children: ReactNode }) => {
       (response) => {
         return response;
       },
-      async function (error) {
+      async (error) => {
         const originalRequest = error.config;
 
         console.log(error.config.url);
@@ -25,7 +25,7 @@ const AxiosProvider = ({ children }: { children: ReactNode }) => {
         if (
           error.response.status === 401 &&
           originalRequest.url ===
-            "http://127.0.0.1:8000/api" + "/token/refresh/"
+            import.meta.env.VITE_API_ENDPOINT + "/token/refresh/"
         ) {
           clearToken();
           // Navigate('/')
