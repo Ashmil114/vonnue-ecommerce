@@ -1,11 +1,10 @@
-import CategoryItem from "./CategoryItem";
+import Title from "../../components/shared/Title";
+import CategoryItem from "../../components/Home/CategoryItem";
 
 const CategorySection = () => {
   return (
     <div>
-      <div className="text-[32px] text-secondary font-bold my-[15px]">
-        Featured Categories
-      </div>
+      <Title title="Featured Categories" />
       <div className="mb-[15px] flex flex-nowrap overflow-x-scroll category-scroll ">
         <CategoryItem
           title="Fruits"

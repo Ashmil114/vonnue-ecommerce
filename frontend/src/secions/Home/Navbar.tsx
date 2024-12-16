@@ -20,7 +20,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-base-100   border-b-[1px]  custom-container fixed w-full top-0 left-0 right-0">
+    <div className="bg-base-100   border-b-[1px]  custom-container fixed w-full top-0 left-0 right-0 z-40">
       <div className="flex items-center justify-between max-sm:gap-2 md:gap-0 lg:gap-[50px] lg:py-[30px]  navbar ">
         <Logo />
         {/* searcher */}
