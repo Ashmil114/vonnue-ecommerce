@@ -4,9 +4,14 @@ from django.db.models import Avg
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    count = serializers.SerializerMethodField()
+
     class Meta:
         model = tb_product_category
-        fields = "__all__"
+        fields = ["id", "name", "image", "count"]
+
+    def get_count(self, obj):
+        return obj.products.count()
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
