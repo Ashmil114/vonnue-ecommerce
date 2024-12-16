@@ -14,8 +14,8 @@ const CategoryItem = (props: categoryItem) => {
         style={{ backgroundColor: CATEGORY_CARD_COLORS[color] }}
       >
         {/* image */}
-        <div className="mb-[20px] group-hover:scale-105 transition">
-          <img src={props.img} alt="" className="max-w-[80px]" />
+        <div className="mb-[20px] group-hover:scale-105 transition  ">
+          <img src={props.img} alt="" className="max-w-[80px] rounded-[10px]" />
         </div>
         <h1 className="w-full min-w-full text-[16px] text-secondary font-bold leading-[1.2]">
           {props.title}

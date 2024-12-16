@@ -8,7 +8,7 @@ type Categories = {
 };
 
 export const categories = () => {
-  return new Promise<Categories>((resolve, reject) => {
+  return new Promise<Categories[]>((resolve, reject) => {
     api
       .get("products/categories")
       .then((response) => {

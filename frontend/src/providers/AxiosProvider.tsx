@@ -28,7 +28,7 @@ const AxiosProvider = ({ children }: { children: ReactNode }) => {
             import.meta.env.VITE_API_ENDPOINT + "/token/refresh/"
         ) {
           clearToken();
-          // Navigate('/')
+
           return Promise.reject(error);
         }
 

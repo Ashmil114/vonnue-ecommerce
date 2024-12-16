@@ -1,80 +1,28 @@
 import Title from "../../components/shared/Title";
 import CategoryItem from "../../components/Home/CategoryItem";
-import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { categories } from "../../api/category.api";
-
 const CategorySection = () => {
-  useEffect(() => {
-    const data = categories();
-
-    data.then((category) => {
-      console.log(category);
-    });
-  }, []);
+  const { data, isLoading } = useQuery({
+    queryKey: ["category"],
+    queryFn: () => categories(),
+  });
   return (
     <div>
-      <Title title="Featured Categories" />
+      <Title title="Featured Categories" extra="text-[32px]" />
       <div className="mb-[15px] flex flex-nowrap overflow-x-scroll category-scroll ">
-        <CategoryItem
-          title="Fruits"
-          img="https://themepanthers.com/wp/nest/d1/wp-content/uploads/2022/05/cat-2.png"
-          items={10}
-        />
-        <CategoryItem
-          title="Vegtables"
-          img="https://themepanthers.com/wp/nest/d1/wp-content/uploads/2022/05/cat-1.png"
-          items={5}
-        />
-        <CategoryItem
-          title="Coffee & Tea"
-          img="https://themepanthers.com/wp/nest/d1/wp-content/uploads/2022/05/cat-14.png"
-          items={6}
-        />
-        <CategoryItem
-          title="Fruits"
-          img="https://themepanthers.com/wp/nest/d1/wp-content/uploads/2022/05/cat-2.png"
-          items={10}
-        />
-        <CategoryItem
-          title="Vegtables"
-          img="https://themepanthers.com/wp/nest/d1/wp-content/uploads/2022/05/cat-1.png"
-          items={5}
-        />
-        <CategoryItem
-          title="Coffee & Tea"
-          img="https://themepanthers.com/wp/nest/d1/wp-content/uploads/2022/05/cat-14.png"
-          items={6}
-        />
-        <CategoryItem
-          title="Fruits"
-          img="https://themepanthers.com/wp/nest/d1/wp-content/uploads/2022/05/cat-2.png"
-          items={10}
-        />
-        <CategoryItem
-          title="Vegtables"
-          img="https://themepanthers.com/wp/nest/d1/wp-content/uploads/2022/05/cat-1.png"
-          items={5}
-        />
-        <CategoryItem
-          title="Coffee & Tea"
-          img="https://themepanthers.com/wp/nest/d1/wp-content/uploads/2022/05/cat-14.png"
-          items={6}
-        />
-        <CategoryItem
-          title="Fruits"
-          img="https://themepanthers.com/wp/nest/d1/wp-content/uploads/2022/05/cat-2.png"
-          items={10}
-        />
-        <CategoryItem
-          title="Vegtables"
-          img="https://themepanthers.com/wp/nest/d1/wp-content/uploads/2022/05/cat-1.png"
-          items={5}
-        />
-        <CategoryItem
-          title="Coffee & Tea"
-          img="https://themepanthers.com/wp/nest/d1/wp-content/uploads/2022/05/cat-14.png"
-          items={6}
-        />
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          data?.map((item) => (
+            <CategoryItem
+              title={item.name}
+              img={item.image}
+              items={item.count}
+              key={item.id}
+            />
+          ))
+        )}
       </div>
     </div>
   );

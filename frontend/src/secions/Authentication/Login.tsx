@@ -11,6 +11,7 @@ import groceryImg from "../../assets/Auth/grocerySet.png";
 function Login() {
   const [newuser, setNewuser] = useState(false);
   const { token, setToken } = useUser();
+  const [formerror, setFormerror] = useState("");
   const navigate = useNavigate();
   const {
     register,
@@ -45,6 +46,7 @@ function Login() {
       })
       .catch((err) => {
         console.log(err);
+        setFormerror(err.error);
       });
   };
 
@@ -57,6 +59,7 @@ function Login() {
       })
       .catch((err) => {
         console.log(err);
+        setFormerror(err.error);
       });
   };
 
@@ -83,6 +86,7 @@ function Login() {
               newuser ? handleSubmit(signupHandler) : handleSubmit(loginHandler)
             }
           >
+            <p className="text-center text-red-500">{formerror}</p>
             {newuser && (
               <div className="form-control">
                 <label className="label">
@@ -110,6 +114,9 @@ function Login() {
                 placeholder="email"
                 className="input input-bordered"
               />
+              {errors.email && (
+                <p className="text-red-500">{errors.email.message}</p>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
@@ -121,6 +128,9 @@ function Login() {
                 placeholder="password"
                 className="input input-bordered"
               />
+              {errors.password && (
+                <p className="text-red-500">{errors.password.message}</p>
+              )}
               <label className="label">
                 <label className="label">
                   <div

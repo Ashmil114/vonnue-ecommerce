@@ -1,6 +1,6 @@
-const Title = (props: { title: string }) => {
+const Title = (props: { title: string; extra?: string }) => {
   return (
-    <div className="text-[32px] text-secondary font-bold my-[15px]">
+    <div className={` text-secondary font-bold my-[15px] ${props.extra}`}>
       {props.title}
     </div>
   );

@@ -43,9 +43,12 @@ body {
 }
 
 .custom-container {
-  @apply lg:px-[100px] max-sm:px-[20px] px-[30px];
+  @apply xl:px-[100px] max-sm:px-[20px] px-[30px];
 }
 
+.top-margin {
+  @apply mt-[150px];
+}
 /* Hide scrollbar for Chrome, Safari and Opera */
 .category-scroll::-webkit-scrollbar {
   display: none;

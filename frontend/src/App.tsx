@@ -4,6 +4,7 @@ import Home from "./secions/Home/Home";
 import ProtectedRoute from "./providers/ProtectedRoute";
 import AxiosProvider from "./providers/AxiosProvider";
 import Navbar from "./secions/Home/Navbar";
+import ProductDetail from "./secions/Product/ProductDetail";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/product/:id" element={<ProductDetail />} />
         </Routes>
       </BrowserRouter>
     </AxiosProvider>
