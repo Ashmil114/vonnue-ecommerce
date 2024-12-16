@@ -1,7 +1,16 @@
 import Title from "../../components/shared/Title";
 import CategoryItem from "../../components/Home/CategoryItem";
+import { useEffect } from "react";
+import { categories } from "../../api/category.api";
 
 const CategorySection = () => {
+  useEffect(() => {
+    const data = categories();
+
+    data.then((category) => {
+      console.log(category);
+    });
+  }, []);
   return (
     <div>
       <Title title="Featured Categories" />

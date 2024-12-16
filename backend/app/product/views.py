@@ -25,5 +25,6 @@ class Products(generics.ListAPIView):
 
 
 class Categories(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = tb_product_category.objects.all()
     serializer_class = CategorySerializer
