@@ -76,6 +76,7 @@ class tb_reviews(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(5)], null=False, blank=False
     )
     review = models.TextField(null=False, blank=False)
+    created = models.DateTimeField(auto_now_add=True, null=True)
 
     class Meta:
         verbose_name = "Review"
