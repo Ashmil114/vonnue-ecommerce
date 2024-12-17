@@ -69,7 +69,7 @@ class tb_reviews(models.Model):
     product = models.ForeignKey(
         tb_product, on_delete=models.CASCADE, related_name="reviews"
     )
-    customer = models.OneToOneField(
+    customer = models.ForeignKey(
         tb_customer, on_delete=models.DO_NOTHING, related_name="reviews"
     )
     rating = models.PositiveSmallIntegerField(
@@ -80,6 +80,7 @@ class tb_reviews(models.Model):
     class Meta:
         verbose_name = "Review"
         verbose_name_plural = "Reviews"
+        unique_together = ("product", "customer")
 
     def __str__(self):
         return f"{self.product.name}"

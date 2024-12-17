@@ -96,8 +96,8 @@ class loginView(APIView):
                 )
             else:
                 return Response(
-                    {"message": "Invalid credentials or not a Customer"},
+                    {"error": "Invalid credentials or not a User"},
                     status=status.HTTP_401_UNAUTHORIZED,
                 )
         except Exception as e:
-            return Response({"err": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
