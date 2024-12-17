@@ -9,8 +9,8 @@ const Breadcrumb = (props: Crumb) => {
   return (
     <div className="breadcrumbs text-sm text-primary font-semibold">
       <ul>
-        {props.items.map((item) => (
-          <li>
+        {props.items.map((item, index) => (
+          <li key={index}>
             <a
               className={`${item.route ? null : "disabled"} `}
               href={item.route}

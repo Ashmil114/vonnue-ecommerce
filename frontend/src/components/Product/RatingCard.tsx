@@ -5,17 +5,20 @@ import Stars from "../../components/Home/Stars";
 // };
 const RatingCard = () => {
   return (
-    <div className="w-fit bg-base-100 border-[1px] border-primary rounded-[25px] h-fit p-[30px] text-secondary">
+    <div className="lg:w-fit w-full bg-base-100 border-[1px] border-primary rounded-[25px] h-fit p-[30px] text-secondary">
       {/* Head */}
       <div>
         <h1 className="font-bold text-[24px] t">Reviews and ratings</h1>
         <div className="flex items-center gap-2">
           <div className="text-[80px] font-bold">4.6</div>
           <div className="">
-            <div className="-ml-[8px]">
+            <div className="-ml-[8px] hidden md:inline">
               <Stars id="000" rate={4} extra="rating-lg" />
             </div>
-            <p className="leading-[.9] text-[18px] text-secondary-content text-center">
+            <div className="-ml-[8px] md:hidden">
+              <Stars id="000" rate={4} extra="rating-md" />
+            </div>
+            <p className="leading-[.9] md:text-[18px] text-[12px] text-secondary-content text-center">
               Based on 223 ratings
             </p>
           </div>
