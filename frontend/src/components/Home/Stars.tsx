@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const Stars = (props: { id: string; rate: number }) => {
+const Stars = (props: { id: string; rate: number; extra?: string }) => {
   const [stars, setStars] = useState([false, false, false, false, false]);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const Stars = (props: { id: string; rate: number }) => {
   }, [props.rate]);
 
   return (
-    <div className="rating rating-sm ">
+    <div className={`rating ${props.extra}  `}>
       <input
         type="radio"
         name={`rating-${props.id}`}

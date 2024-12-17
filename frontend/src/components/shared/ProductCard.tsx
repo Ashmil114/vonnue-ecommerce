@@ -39,7 +39,7 @@ const ProductCard = (props: Product) => {
               {/* Rating */}
               <div className="w-[78px] relative ">
                 <div className="mb-[2px] -ml-[8px] flex items-center gap-3">
-                  <Stars id={props.id} rate={props.rating} />
+                  <Stars id={props.id} rate={props.rating} extra="rating-sm" />
                   <span className="text-secondary-content">
                     {props.total_reviews}
                   </span>
