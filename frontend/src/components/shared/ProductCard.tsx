@@ -28,9 +28,9 @@ const ProductCard = (props: Product) => {
             <div className="px-[20px] pb-[20px]">
               {/* Category */}
               <div className="mb-[5px] ">
-                <a href="" className="text-[12px] text-secondary-content ">
+                <span className="text-[12px] text-secondary-content ">
                   {props.category}
-                </a>
+                </span>
               </div>
               {/* title */}
               <h2 className="mb-[11px] text-[16px] font-bold leading-[1.2] text-secondary">
@@ -48,10 +48,7 @@ const ProductCard = (props: Product) => {
               {/* Distributor */}
               <div>
                 <span className="text-secondary-content">
-                  By{" "}
-                  <a href="" className="text-primary">
-                    {props.seller}
-                  </a>
+                  By <span className="text-primary">{props.seller}</span>
                 </span>
               </div>
 

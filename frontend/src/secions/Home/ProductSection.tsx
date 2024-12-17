@@ -4,7 +4,7 @@ import Title from "../../components/shared/Title";
 import { products } from "../../api/product.api";
 
 const ProductSection = () => {
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["product", "id"],
     queryFn: () => products(),
   });
@@ -12,10 +12,10 @@ const ProductSection = () => {
     <div className="mt-[35px]">
       <Title title="Popular Products" extra="text-[32px]" />
       <div className="flex  flex-wrap">
-        {isLoading ? (
+        {!Array.isArray(data) ? (
           <div>Loading...</div>
         ) : (
-          data?.map((product) => <ProductCard {...product} key={product.id} />)
+          data.map((product) => <ProductCard {...product} key={product.id} />)
         )}
       </div>
     </div>

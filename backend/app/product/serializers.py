@@ -113,6 +113,7 @@ class ProductSerializer(serializers.ModelSerializer):
     rating_set = serializers.SerializerMethodField()
     reviews = ReviewSerializer(many=True)
     is_reviewed = serializers.SerializerMethodField()
+    user_review = serializers.SerializerMethodField()
 
     class Meta:
         model = tb_product
@@ -130,6 +131,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "reviews",
             "rating_set",
             "is_reviewed",
+            "user_review",
         ]
         depth = 1
 
@@ -150,19 +152,6 @@ class ProductSerializer(serializers.ModelSerializer):
         if reviews.exists():
             return reviews.aggregate(Avg("rating"))["rating__avg"]
         return 0
-
-    # def get_rating_set(self, obj):
-    #     reviews = obj.reviews.all()
-    #     r = [
-    #         {"rating": 1, "count": 1},
-    #         {"rating": 2, "count": 1},
-    #         {"rating": 3, "count": 1},
-    #         {"rating": 4, "count": 1},
-    #         {"rating": 5, "count": 1},
-    #     ]
-    #     if reviews.exists():
-    #         return reviews.values("rating").annotate(count=Count("rating"))
-    #     return r
 
     def get_rating_set(self, obj):
         reviews = obj.reviews.all()
@@ -187,10 +176,15 @@ class ProductSerializer(serializers.ModelSerializer):
     def get_is_reviewed(self, obj):
         customer = self.context.get("request").user.customer
         if customer and obj.reviews.filter(customer=customer).exists():
+            return True
+        return False
+
+    def get_user_review(self, obj):
+        customer = self.context.get("request").user.customer
+        if customer and obj.reviews.filter(customer=customer).exists():
             review = obj.reviews.filter(customer=customer).first()
             return UserReviewSerializer(review).data
-            # return True
-        return False
+        return {}
 
     def get_total_reviews(self, obj):
         return obj.reviews.count()

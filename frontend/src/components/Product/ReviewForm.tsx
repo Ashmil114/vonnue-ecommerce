@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Title from "../shared/Title";
 import StarInput from "./StarInput";
 
@@ -6,17 +6,21 @@ type Reviewtype = {
   edit: boolean;
   rating: number | 0;
   review?: string;
+  pid: string | null;
 };
 
 const ReviewForm = (props: Reviewtype) => {
-  const [userRate, setUserRate] = useState(props.edit ? props.rating : 0);
+  const [userRate, setUserRate] = useState(0);
 
   const reviewHandler = () => {
     // e.preventDefault();
     console.log("Rating", userRate);
   };
+  useEffect(() => {
+    setUserRate(props.edit ? props.rating : 0);
+  }, [props]);
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <Title
         title={`${props.edit ? "Edit your review" : "Add a review"}`}
         extra="text-[25px]"
@@ -28,16 +32,21 @@ const ReviewForm = (props: Reviewtype) => {
       <form action="" className="flex flex-col gap-5" onSubmit={reviewHandler}>
         {/* Rating */}
 
-        <StarInput rateAction={setUserRate} rate={userRate} />
+        <StarInput
+          rateAction={setUserRate}
+          rate={props.edit ? props.rating : 0}
+          pid={props.pid}
+        />
         {/* Your Review */}
         <label className="form-control">
           <div className="label">
             <span className="label-text text-[16px]">Your Review *</span>
           </div>
           <textarea
-            className="textarea textarea-bordered h-32"
+            className="textarea textarea-bordered h-32 "
             placeholder="Bio"
             value={props.edit ? props.review : ""}
+            onChange={() => ""}
           ></textarea>
         </label>
         {/* Submit Button */}
