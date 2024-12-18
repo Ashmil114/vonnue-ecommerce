@@ -3,6 +3,7 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from django.db.models import Count
 
 from .models import tb_product, tb_product_category, tb_reviews
 from .serializers import (
@@ -46,6 +47,11 @@ class Categories(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     queryset = tb_product_category.objects.all()
     serializer_class = CategorySerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.annotate(product_count=Count("products"))
+        return queryset.order_by("-product_count")
 
 
 # Add Review

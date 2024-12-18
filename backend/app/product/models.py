@@ -29,6 +29,7 @@ class tb_product_category(models.Model):
         storage=OverwriteStorage(),
         blank=False,
         null=False,
+        max_length=500,
     )
 
     class Meta:

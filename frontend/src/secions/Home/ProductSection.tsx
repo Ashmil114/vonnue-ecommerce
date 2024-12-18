@@ -9,9 +9,9 @@ const ProductSection = () => {
     queryFn: () => products(),
   });
   return (
-    <div className="mt-[35px]">
+    <div className="mt-[35px] ">
       <Title title="Popular Products" extra="text-[32px]" />
-      <div className="flex  flex-wrap">
+      <div className="flex  flex-wrap ">
         {!Array.isArray(data) ? (
           <div>Loading...</div>
         ) : (

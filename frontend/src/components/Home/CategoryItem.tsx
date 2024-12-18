@@ -10,12 +10,16 @@ const CategoryItem = (props: categoryItem) => {
   return (
     <div className="min-h-[180px] mr-[20px] ">
       <div
-        className={`flex items-center flex-wrap justify-center relative text-center rounded-[10px] pt-[20px] pb-[18px] border-[1px] border-[#F4F6FA]  hover:border-primary  min-w-[150px] group`}
+        className={`flex items-center flex-wrap justify-center relative text-center rounded-[10px] pt-[20px] pb-[18px] border-[1px] border-[#F4F6FA]  hover:border-primary  min-w-[150px] group h-full`}
         style={{ backgroundColor: CATEGORY_CARD_COLORS[color] }}
       >
         {/* image */}
         <div className="mb-[20px] group-hover:scale-105 transition  ">
-          <img src={props.img} alt="" className="max-w-[80px] rounded-[10px]" />
+          <img
+            src={`${props.img}?key=${Date.now()}`}
+            alt=""
+            className="max-w-[80px] rounded-[10px]"
+          />
         </div>
         <h1 className="w-full min-w-full text-[16px] text-secondary font-bold leading-[1.2]">
           {props.title}
