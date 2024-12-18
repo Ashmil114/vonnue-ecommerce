@@ -10,7 +10,9 @@ from .serializers import (
     CategorySerializer,
     ProductSerializer,
     ReviewsSerializer,
+    ReviewSerializer,
 )
+from .paginations import ReviewPagination
 
 
 class ping(APIView):
@@ -19,7 +21,7 @@ class ping(APIView):
 
 
 class Products(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     queryset = tb_product.objects.all()
     serializer_class = ProductsSerializer
 
@@ -88,6 +90,17 @@ class Reviews(APIView):
             {"message": "Review added", "id": serializer.data["id"]},
             status=status.HTTP_201_CREATED,
         )
+
+
+class ReviewSet(generics.ListAPIView):
+    # permission_classes = [IsAuthenticated]
+    queryset = tb_reviews.objects.all()
+    serializer_class = ReviewSerializer
+    pagination_class = ReviewPagination
+
+    def get_queryset(self):
+        product_id = self.kwargs.get("pid")
+        return tb_reviews.objects.filter(product_id=product_id)
 
 
 # Edit review

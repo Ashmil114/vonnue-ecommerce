@@ -111,7 +111,7 @@ class ProductSerializer(serializers.ModelSerializer):
     rating = serializers.SerializerMethodField()
     total_reviews = serializers.SerializerMethodField()
     rating_set = serializers.SerializerMethodField()
-    reviews = ReviewSerializer(many=True)
+    # reviews = ReviewSerializer(many=True)
     is_reviewed = serializers.SerializerMethodField()
     user_review = serializers.SerializerMethodField()
 
@@ -128,7 +128,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "description",
             "category",
             "seller",
-            "reviews",
+            # "reviews",
             "rating_set",
             "is_reviewed",
             "user_review",
