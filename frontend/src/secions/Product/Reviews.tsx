@@ -27,7 +27,7 @@ const Reviews = (props: {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["projects"],
+    queryKey: ["reviews"],
     queryFn: ({ pageParam }) => reviews({ pid: props.pid, cursor: pageParam }),
     initialPageParam: "",
     getNextPageParam: (lastPage) => lastPage.next,
@@ -64,7 +64,6 @@ const Reviews = (props: {
                     {data.pages.map((group, i) => (
                       <React.Fragment key={i}>
                         {group.results.map((rev) => (
-                          // <p key={project.id}>{project.id}</p>
                           <ReviewCard {...rev} key={rev.id} />
                         ))}
                       </React.Fragment>

@@ -46,6 +46,9 @@ const ReviewForm = (props: Reviewtype) => {
           queryClient.invalidateQueries({
             queryKey: ["product"],
           });
+          queryClient.invalidateQueries({
+            queryKey: ["reviews"],
+          });
           setMsg(res.message);
         },
         onError: (err) => {
@@ -59,6 +62,9 @@ const ReviewForm = (props: Reviewtype) => {
         onSuccess: (res) => {
           queryClient.invalidateQueries({
             queryKey: ["product"],
+          });
+          queryClient.invalidateQueries({
+            queryKey: ["reviews"],
           });
           console.log(res);
           setMsg(res.message);
