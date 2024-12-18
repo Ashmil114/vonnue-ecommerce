@@ -21,7 +21,7 @@ class ping(APIView):
 
 
 class Products(generics.ListAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = tb_product.objects.all()
     serializer_class = ProductsSerializer
 
@@ -93,7 +93,7 @@ class Reviews(APIView):
 
 
 class ReviewSet(generics.ListAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = tb_reviews.objects.all()
     serializer_class = ReviewSerializer
     pagination_class = ReviewPagination

@@ -22,7 +22,7 @@ class CustomPagination(CursorPagination):
 
 
 class ReviewPagination(CustomPagination):
-    page_size = 1
+    page_size = 4
     page_size_query_param = "page_size"
     max_page_size = 100
-    ordering = "id"
+    ordering = "-created"
