@@ -2,12 +2,14 @@ import RatingCard from "../../components/Product/RatingCard";
 import ReviewForm from "../../components/Product/ReviewForm";
 import Title from "../../components/shared/Title";
 // import ReviewCard from "../../components/Product/ReviewCard";
-import { IsReviewed, RatingSet } from "../../api/product.api";
+import { IsReviewed, RatingSet, reviews } from "../../api/product.api";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import React from "react";
+import ReviewCard from "../../components/Product/ReviewCard";
 
 // import Stars from "../../components/Home/Stars";
 
 const Reviews = (props: {
-  // review: Review[];
   rating: RatingSet[];
   count: number;
   rate: number;
@@ -16,6 +18,21 @@ const Reviews = (props: {
   pid: string | null;
   name: string | null;
 }) => {
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ["projects"],
+    queryFn: ({ pageParam }) => reviews({ pid: props.pid, cursor: pageParam }),
+    initialPageParam: "",
+    getNextPageParam: (lastPage) => lastPage.next,
+  });
+
   return (
     <div className="border-t-[1px] mt-[50px]">
       <div className="custom-container py-[20px]">
@@ -38,10 +55,38 @@ const Reviews = (props: {
                 {/* {props.review.map((r) => (
                   <ReviewCard {...r} key={r.id} />
                 ))} */}
+                {status === "pending" ? (
+                  <p>Loading...</p>
+                ) : status === "error" ? (
+                  <p>Error: {error?.message}</p>
+                ) : (
+                  <>
+                    {data.pages.map((group, i) => (
+                      <React.Fragment key={i}>
+                        {group.results.map((rev) => (
+                          // <p key={project.id}>{project.id}</p>
+                          <ReviewCard {...rev} key={rev.id} />
+                        ))}
+                      </React.Fragment>
+                    ))}
+                    <div>
+                      {isFetching && !isFetchingNextPage ? "Fetching..." : null}
+                    </div>
+                  </>
+                )}
               </div>
               <div className="w-full flex justify-center ">
                 <div className="btn btn-link text-primary text-[16px]">
-                  See More
+                  <button
+                    onClick={() => fetchNextPage()}
+                    disabled={!hasNextPage || isFetchingNextPage}
+                  >
+                    {isFetchingNextPage
+                      ? "Loading more..."
+                      : hasNextPage
+                      ? "See More"
+                      : "Nothing more"}
+                  </button>
                 </div>
               </div>
             </div>

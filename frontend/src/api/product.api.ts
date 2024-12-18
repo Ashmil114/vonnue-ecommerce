@@ -19,6 +19,12 @@ export type Review = {
   customer: string;
 };
 
+export type ReviewSet = {
+  next: string;
+  previous: string;
+  results: Review[];
+};
+
 export type RatingSet = {
   rating: number;
   count: number;
@@ -41,7 +47,6 @@ export type ProductDetail = {
   description: string;
   category: string;
   seller: string;
-  // reviews: Review[];
   rating_set: RatingSet[];
   is_reviewed: boolean;
   user_review: IsReviewed;
@@ -64,6 +69,25 @@ export const productDetail = ({ id }: { id: string }) => {
   return new Promise<ProductDetail>((resolve, reject) => {
     api
       .get(`products/product/${id}`)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(err.response.data);
+      });
+  });
+};
+
+export const reviews = ({
+  cursor,
+  pid,
+}: {
+  cursor?: string;
+  pid: string | null;
+}) => {
+  return new Promise<ReviewSet>((resolve, reject) => {
+    api
+      .get(`products/reviewset/${pid}?cursor=${cursor}`)
       .then((res) => {
         resolve(res.data);
       })

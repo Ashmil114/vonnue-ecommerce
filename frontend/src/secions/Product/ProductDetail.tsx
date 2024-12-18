@@ -145,7 +145,6 @@ const ProductDetail = () => {
           {/* Review */}
           <Reviews
             count={data?.total_reviews || 0}
-            // review={data?.reviews || []}
             rating={data?.rating_set || []}
             rate={data?.rating || 0}
             is_reviewed={data?.is_reviewed || false}
