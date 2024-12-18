@@ -97,6 +97,7 @@ class tb_product_image(models.Model):
         storage=OverwriteStorage(),
         blank=False,
         null=False,
+        max_length=500,
     )
 
     class Meta:

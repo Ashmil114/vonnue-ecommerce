@@ -36,6 +36,9 @@ INSTALLED_APPS = [
     # APPS
     "app.customer",
     "app.product",
+
+    # Third party
+    "django_seed",
 ]
 
 MIDDLEWARE = [
