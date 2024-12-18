@@ -15,7 +15,7 @@ const ProductDetail = () => {
   const [pimage, setPimage] = useState<string[]>([]);
   const [imgIndex, setImgIndex] = useState(0);
   const { data, isLoading } = useQuery({
-    queryKey: ["product", "id"],
+    queryKey: ["product", id],
     queryFn: () => productDetail({ id: id! }),
     enabled: id !== null,
   });
@@ -145,12 +145,13 @@ const ProductDetail = () => {
           {/* Review */}
           <Reviews
             count={data?.total_reviews || 0}
-            review={data?.reviews || []}
+            // review={data?.reviews || []}
             rating={data?.rating_set || []}
             rate={data?.rating || 0}
             is_reviewed={data?.is_reviewed || false}
             user_review={data?.user_review || null}
             pid={data?.id || null}
+            name={data?.name || null}
           />
         </div>
       )}

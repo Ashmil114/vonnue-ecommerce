@@ -41,7 +41,7 @@ export type ProductDetail = {
   description: string;
   category: string;
   seller: string;
-  reviews: Review[];
+  // reviews: Review[];
   rating_set: RatingSet[];
   is_reviewed: boolean;
   user_review: IsReviewed;
@@ -64,6 +64,55 @@ export const productDetail = ({ id }: { id: string }) => {
   return new Promise<ProductDetail>((resolve, reject) => {
     api
       .get(`products/product/${id}`)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(err.response.data);
+      });
+  });
+};
+
+export const postReview = ({
+  product_id,
+  rating,
+  review,
+}: {
+  product_id: string;
+  rating: number;
+  review: string;
+}) => {
+  return new Promise<{ message: string; id: string }>((resolve, reject) => {
+    api
+      .post(`products/reviews/`, {
+        product_id,
+        rating,
+        review,
+      })
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(err.response.data);
+      });
+  });
+};
+
+export const updateReview = ({
+  id,
+  rating,
+  review,
+}: {
+  id: string;
+  rating: number;
+  review: string;
+}) => {
+  return new Promise<{ message: string; id: string }>((resolve, reject) => {
+    api
+      .put(`products/reviews/${id}`, {
+        rating,
+        review,
+      })
       .then((res) => {
         resolve(res.data);
       })

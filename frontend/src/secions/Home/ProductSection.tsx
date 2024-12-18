@@ -5,7 +5,7 @@ import { products } from "../../api/product.api";
 
 const ProductSection = () => {
   const { data } = useQuery({
-    queryKey: ["product", "id"],
+    queryKey: ["product"],
     queryFn: () => products(),
   });
   return (

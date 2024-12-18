@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 
 const ProductCard = (props: Product) => {
   return (
-    <div className=" basis-auto lg:w-1/5  md:w-1/3 w-1/2 px-[5px]">
+    <div className=" basis-auto lg:w-1/5  md:w-1/3 w-1/2 px-[5px] ">
       <Link to={`/product/${props.id}`}>
         <div className="group">
-          <div className="mb-[20px] relative bg-[#fff] border-[1px] border-[#ececec] rounded-[15px] overflow-hidden transition">
+          <div className="mb-[20px] relative bg-[#fff] border-[1px] border-[#ececec] rounded-[15px] overflow-hidden transition ">
             {/* Image */}
             <div className="overflow-hidden px-[25px] pt-[25px] ">
               <div className="overflow-hidden rounded-[15px] relative ">
@@ -25,7 +25,7 @@ const ProductCard = (props: Product) => {
               </div>
             </div>
             {/* Details */}
-            <div className="px-[20px] pb-[20px]">
+            <div className="px-[20px] pb-[20px] min-h-[250px] flex flex-col justify-between">
               {/* Category */}
               <div className="mb-[5px] ">
                 <span className="text-[12px] text-secondary-content ">

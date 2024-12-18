@@ -1,25 +1,26 @@
 import RatingCard from "../../components/Product/RatingCard";
 import ReviewForm from "../../components/Product/ReviewForm";
 import Title from "../../components/shared/Title";
-import ReviewCard from "../../components/Product/ReviewCard";
-import { IsReviewed, RatingSet, Review } from "../../api/product.api";
+// import ReviewCard from "../../components/Product/ReviewCard";
+import { IsReviewed, RatingSet } from "../../api/product.api";
 
 // import Stars from "../../components/Home/Stars";
 
 const Reviews = (props: {
-  review: Review[];
+  // review: Review[];
   rating: RatingSet[];
   count: number;
   rate: number;
   is_reviewed: boolean;
   user_review: IsReviewed | null;
   pid: string | null;
+  name: string | null;
 }) => {
   return (
     <div className="border-t-[1px] mt-[50px]">
       <div className="custom-container py-[20px]">
         <Title
-          title={`${props.count} Review(s) for Forest Farm Takeout Cripsy Classic`}
+          title={`${props.count} Review(s) for ${props.name}`}
           extra="text-[22px]"
         />
         <div className="flex gap-5 flex-col lg:flex-row">
@@ -34,9 +35,9 @@ const Reviews = (props: {
             {/* Reviews */}
             <div className="w-full ">
               <div className="flex flex-col gap-3   pb-[10px] review-bg min-h-max  ">
-                {props.review.map((r) => (
-                  <ReviewCard {...r} />
-                ))}
+                {/* {props.review.map((r) => (
+                  <ReviewCard {...r} key={r.id} />
+                ))} */}
               </div>
               <div className="w-full flex justify-center ">
                 <div className="btn btn-link text-primary text-[16px]">
@@ -51,10 +52,11 @@ const Reviews = (props: {
                 edit={true}
                 rating={props.user_review!.rating}
                 review={props.user_review?.review}
-                pid={props.pid}
+                pid={props.pid || ""}
+                id={props.user_review?.id || ""}
               />
             ) : (
-              <ReviewForm edit={false} rating={0} pid={props.pid} />
+              <ReviewForm edit={false} rating={0} pid={props.pid || ""} />
             )}
           </div>
         </div>
