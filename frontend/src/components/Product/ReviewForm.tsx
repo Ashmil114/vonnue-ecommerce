@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { reviewSchema, ReviewSchema } from "../../validations/auth.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postReview, updateReview } from "../../api/product.api";
+import { deleteReview, postReview, updateReview } from "../../api/product.api";
 import ToastMessage from "../shared/ToastMessage";
 
 type Reviewtype = {
@@ -30,50 +30,73 @@ const ReviewForm = (props: Reviewtype) => {
     formState: { errors },
   } = useForm<ReviewSchema>({
     defaultValues: {
-      product_id: "",
       rating: 1,
       review: "",
-      id: "",
     },
     resolver: zodResolver(reviewSchema),
   });
 
   const reviewHandler = (values: ReviewSchema) => {
     if (props.edit) {
-      // console.log("Edit", values);
-      updateReviewMutation.mutate(values, {
-        onSuccess: (res) => {
-          queryClient.invalidateQueries({
-            queryKey: ["product"],
-          });
-          queryClient.invalidateQueries({
-            queryKey: ["reviews"],
-          });
-          setMsg(res.message);
-        },
-        onError: (err) => {
-          setMsg(err.message);
-          setErr(true);
-        },
-      });
+      console.log("Edit", values);
+      updateReviewMutation.mutate(
+        { ...values, id: props.id || "" },
+        {
+          onSuccess: (res) => {
+            queryClient.invalidateQueries({
+              queryKey: ["product"],
+            });
+            queryClient.invalidateQueries({
+              queryKey: ["reviews"],
+            });
+            setMsg(res.message);
+          },
+          onError: (err) => {
+            setMsg(err.message);
+            setErr(true);
+          },
+        }
+      );
     } else {
-      // console.log("Add", values);
-      postReviewMutation.mutate(values, {
-        onSuccess: (res) => {
-          queryClient.invalidateQueries({
-            queryKey: ["product"],
-          });
-          queryClient.invalidateQueries({
-            queryKey: ["reviews"],
-          });
-          console.log(res);
-          setMsg(res.message);
-        },
-        onError: (err) => {
-          console.log(err);
-          setMsg(err.message);
-          setErr(true);
-        },
+      console.log("Add", values);
+      postReviewMutation.mutate(
+        { ...values, product_id: props.pid || "" },
+        {
+          onSuccess: (res) => {
+            queryClient.invalidateQueries({
+              queryKey: ["product"],
+            });
+            queryClient.invalidateQueries({
+              queryKey: ["reviews"],
+            });
+            console.log(res);
+            setMsg(res.message);
+          },
+          onError: (err) => {
+            console.log(err);
+            setMsg(err.message);
+            setErr(true);
+          },
+        }
+      );
+    }
+  };
+  const deleteHandler = () => {
+    const confirmLogout = confirm(
+      "Are you sure you want to delete your review?"
+    );
+    if (confirmLogout) {
+      // console.log(props.id);
+
+      deleteReview({ id: props.id || "" }).then(() => {
+        queryClient.invalidateQueries({
+          queryKey: ["product"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["reviews"],
+        });
+        setMsg("Review Deleted");
+        setErr(false);
       });
     }
   };
@@ -81,9 +104,11 @@ const ReviewForm = (props: Reviewtype) => {
   useEffect(() => {
     setValue("rating", userRate);
     setValue("review", props.edit ? props.review! : "");
-    setValue("product_id", props.pid!);
-    setValue("id", props.edit ? props.id! : "");
   }, [props, setValue, userRate]);
+
+  useEffect(() => {
+    console.log(errors);
+  }, [errors]);
   return (
     <div className="w-full ">
       {msg && <ToastMessage msg={msg} err={err} />}
@@ -123,7 +148,6 @@ const ReviewForm = (props: Reviewtype) => {
         </label>
         <div className="text-[12px] text-red-500">
           <span>{errors.review?.message}</span>
-          <span>{errors.product_id?.message}</span>
         </div>
 
         {/* Submit Button */}
@@ -135,6 +159,16 @@ const ReviewForm = (props: Reviewtype) => {
           />
         </div>
       </form>
+      {props.edit && (
+        <div className="flex items-end w-full justify-center">
+          <button
+            className="btn btn-link text-red-500 text-[14px] "
+            onClick={deleteHandler}
+          >
+            Delete Review
+          </button>
+        </div>
+      )}
     </div>
   );
 };

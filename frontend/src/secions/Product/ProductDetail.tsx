@@ -9,6 +9,7 @@ import Reviews from "./Reviews";
 import { productDetail } from "../../api/product.api";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { Cart, useCart } from "../../store/cartStore";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -27,6 +28,34 @@ const ProductDetail = () => {
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [data]);
+  const [carted, setCarted] = useState(false);
+  const [cartItem, setcartItem] = useState<Cart>();
+  const { cart, addItem, removeItem } = useCart();
+
+  useEffect(() => {
+    if (cart) {
+      const item = cart.find((item) => item.product.id === id);
+      if (item) {
+        setCarted(true);
+        setcartItem(item);
+      } else {
+        setCarted(false);
+      }
+    }
+    console.log(cart);
+  }, [setcartItem, cart, id]);
+  const productData = {
+    category: data?.category || "",
+    description: data?.description || "",
+    id: data?.id || "",
+    images: data?.images || [],
+    mrp: data?.mrp || "",
+    name: data?.name || "",
+    price: data?.price || "",
+    rating: data?.rating || 0,
+    seller: data?.seller || "",
+    total_reviews: data?.total_reviews || 0,
+  };
   // console.log(data);
   return (
     <div className="  top-margin">
@@ -139,14 +168,40 @@ const ProductDetail = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="cursor-pointer">
-                    <div className="w-fit h-[50px] max-sm:w-full  bg-primary-bg relative py-[8px] px-[20px]  text-primary flex rounded-md items-center justify-center">
-                      <MdOutlineAddShoppingCart className="w-[30px] h-[30px] text-[20px]" />
-                      <span className="whitespace-nowrap font-bold max-sm:text-[12px] ">
-                        Add to cart
+                  {carted ? (
+                    <div className="cursor-pointer flex items-center gap-3 text-white">
+                      <div
+                        className="w-[35px] h-[40px] max-sm:w-full max-sm:h-[36px] bg-red-500 relative py-[6px] px-[13px]   flex rounded-md items-center max-sm:justify-center"
+                        onClick={() => removeItem(productData)}
+                      >
+                        -
+                      </div>
+                      <span className="whitespace-nowrap font-bold text-secondary max-sm:text-[12px] ">
+                        {cartItem?.quantity}
                       </span>
+                      <div
+                        className="w-[35px] h-[40px] max-sm:w-full max-sm:h-[36px] bg-primary relative py-[6px] px-[13px]   flex rounded-md items-center max-sm:justify-center"
+                        onClick={() => addItem(productData)}
+                      >
+                        +
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div
+                      className="cursor-pointer"
+                      onClick={() => {
+                        addItem(productData);
+                        setCarted(true);
+                      }}
+                    >
+                      <div className="w-fit h-[50px] max-sm:w-full  bg-primary-bg relative py-[8px] px-[20px]  text-primary flex rounded-md items-center justify-center">
+                        <MdOutlineAddShoppingCart className="w-[30px] h-[30px] text-[20px]" />
+                        <span className="whitespace-nowrap font-bold max-sm:text-[12px] ">
+                          Add to cart
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

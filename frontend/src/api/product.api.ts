@@ -121,9 +121,11 @@ export const postReview = ({
       })
       .then((res) => {
         resolve(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         reject(err.response.data);
+        console.log(err.response.data);
       });
   });
 };
@@ -148,6 +150,21 @@ export const updateReview = ({
       })
       .catch((err) => {
         reject(err.response.data);
+      });
+  });
+};
+
+export const deleteReview = ({ id }: { id: string }) => {
+  return new Promise<string>((resolve, reject) => {
+    api
+      .delete(`products/reviews/delete/${id}`)
+      .then((res) => {
+        resolve(res.data.message);
+        console.log(res.data.message);
+      })
+      .catch((err) => {
+        reject(err.response.data.message);
+        console.log(err.response.data.message);
       });
   });
 };

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ping, Products, Product, Categories, Reviews, Review, ReviewSet
+from .views import ping, Products, Product, Categories, Reviews, Review,ReviewSet, DeleteReview
 
 
 urlpatterns = [
@@ -10,4 +10,5 @@ urlpatterns = [
     path("reviews/", Reviews.as_view()),
     path("reviewset/<pid>", ReviewSet.as_view()),
     path("reviews/<pk>", Review.as_view()),
+    path("reviews/delete/<pk>", DeleteReview.as_view()),
 ]

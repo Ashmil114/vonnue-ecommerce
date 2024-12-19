@@ -4,7 +4,6 @@ import Title from "../../components/shared/Title";
 import { getProducts } from "../../api/product.api";
 import { useProduct } from "../../store/productStore";
 import { useEffect } from "react";
-
 const ProductSection = () => {
   const { products, setProducts } = useProduct();
   const { data } = useQuery({
@@ -33,6 +32,18 @@ const ProductSection = () => {
           <div>Loading...</div>
         ) : (
           products.map((product) => (
+            // <ProductCard
+            //   {...product}
+            //   cart={
+            //     cart.find((item) => item.product.id === product.id) || {
+            //       product: product,
+            //       quantity: 1,
+            //     }
+            //   }
+            //   addCart={addItem}
+            //   removeCart={removeItem}
+            //   key={product.id}
+            // />
             <ProductCard {...product} key={product.id} />
           ))
         )}

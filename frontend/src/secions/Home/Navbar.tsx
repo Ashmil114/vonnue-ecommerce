@@ -8,6 +8,7 @@ import Logo from "../../components/Home/Logo";
 import Searcher from "../../components/Home/Searcher";
 
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../../store/cartStore";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -16,8 +17,10 @@ const Navbar = () => {
     const confirmLogout = confirm("Are you sure you want to logout?");
     if (confirmLogout) {
       clearToken();
+      clearCart();
     }
   };
+  const { cart, clearCart } = useCart();
 
   return (
     <div className="bg-base-100   border-b-[1px]  custom-container fixed w-full top-0 left-0 right-0 z-40">
@@ -39,7 +42,7 @@ const Navbar = () => {
             icon={TiShoppingCart}
             label="Cart"
             indicator={true}
-            indicatorCount={8}
+            indicatorCount={cart.length}
             // action={() => navigate("/cart")}
           />
           {/* User Account */}

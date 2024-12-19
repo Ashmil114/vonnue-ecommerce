@@ -11,8 +11,11 @@ class ProductAdmin(admin.ModelAdmin):
     list_editable = ("category",)
     list_display = ("name", "category")
 
+class ReviewAdmin(admin.ModelAdmin):
+    list_display=('id', 'rating', 'review')
+
 
 admin.site.register(tb_product_category, CategoryAdmin)
 admin.site.register(tb_product, ProductAdmin)
 admin.site.register(tb_product_image)
-admin.site.register(tb_reviews)
+admin.site.register(tb_reviews, ReviewAdmin)

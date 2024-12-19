@@ -144,3 +144,10 @@ class Review(APIView):
             {"message": "Review updated", "id": serializer.data["id"]},
             status=status.HTTP_200_OK,
         )
+
+
+# Delete review
+class DeleteReview(generics.DestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = tb_reviews.objects.all()
+    serializer_class = ReviewsSerializer

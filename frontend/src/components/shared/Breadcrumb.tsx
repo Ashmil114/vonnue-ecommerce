@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 type Crumb = {
   items: {
     title: string;
@@ -11,12 +13,12 @@ const Breadcrumb = (props: Crumb) => {
       <ul>
         {props.items.map((item, index) => (
           <li key={index}>
-            <a
+            <Link
+              to={item.route!}
               className={`${item.route ? null : "disabled"} `}
-              href={item.route}
             >
               {item.title}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
