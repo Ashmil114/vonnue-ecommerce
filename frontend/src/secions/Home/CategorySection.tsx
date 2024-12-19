@@ -14,7 +14,7 @@ const CategorySection = () => {
   const { state } = location;
   const queryClient = useQueryClient();
   const { data: productData } = useQuery({
-    queryKey: ["product", category],
+    queryKey: ["product"],
     queryFn: () => getProducts({ category: category }),
     enabled: !!category,
   });
@@ -33,7 +33,7 @@ const CategorySection = () => {
     if (category === "") {
       setproductCount(productData?.length);
     }
-  }, [productData, setProducts, queryClient, morecategory, category]);
+  }, [productData, queryClient, morecategory, category, setProducts]);
 
   const { data: categoryData, isLoading } = useQuery({
     queryKey: ["category"],

@@ -21,7 +21,7 @@ const ProductSection = () => {
       <Title
         title="Popular Products"
         extra="text-[32px]"
-        count={products.length}
+        count={products?.length}
       />
       <div className="flex  flex-wrap ">
         {products && products.length === 0 && (
@@ -29,7 +29,7 @@ const ProductSection = () => {
             No products found.
           </p>
         )}
-        {!Array.isArray(data) ? (
+        {!Array.isArray(products) ? (
           <div>Loading...</div>
         ) : (
           products.map((product) => (

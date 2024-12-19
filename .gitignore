@@ -1,5 +1,5 @@
 misc
-Scrapy
+Scrapy/ecomscrape
 # Backend
 env/
 .pytest_cache

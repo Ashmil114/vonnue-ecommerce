@@ -21,7 +21,7 @@ const Searcher = () => {
       setProducts(data);
       queryClient.invalidateQueries({ queryKey: ["product"] });
     }
-  }, [data, setProducts, queryClient]);
+  }, [data, queryClient, setProducts]);
 
   const handleFocus = () => {
     navigate("/");
