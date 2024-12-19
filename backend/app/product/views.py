@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Count
+from django_filters import rest_framework as filters
 
 from .models import tb_product, tb_product_category, tb_reviews
 from .serializers import (
@@ -14,6 +15,7 @@ from .serializers import (
     ReviewSerializer,
 )
 from .paginations import ReviewPagination
+from .filters import ProductFilter
 
 
 class ping(APIView):
@@ -22,9 +24,11 @@ class ping(APIView):
 
 
 class Products(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     queryset = tb_product.objects.all()
     serializer_class = ProductsSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = ProductFilter
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
