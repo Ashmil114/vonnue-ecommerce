@@ -1,5 +1,8 @@
 import BannerImg from "../../assets/Home/banner.png";
 const Banner = () => {
+  const handleScroll = () => {
+    window.scrollTo({ top: 800, behavior: "smooth" });
+  };
   return (
     <div className="w-full min-h-[438px] rounded-[30px] bg-primary-bg lg:py-[50px] lg:px-[100px] p-[30px] flex justify-between max-sm:flex-col mb-[35px]">
       <div className="flex flex-col md:min-h-[438px] justify-center w-auto">
@@ -11,7 +14,10 @@ const Banner = () => {
           Save up to 50% off on your first order
         </p>
         <div>
-          <button className="btn bg-primary rounded-[10px] lg:btn-lg md:btn-md  text-white hover:bg-primary-accent">
+          <button
+            className="btn bg-primary rounded-[10px] lg:btn-lg md:btn-md  text-white hover:bg-primary-accent"
+            onClick={handleScroll}
+          >
             Shop Now
           </button>
         </div>

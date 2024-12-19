@@ -6,26 +6,26 @@ import { Link } from "react-router-dom";
 const ProductCard = (props: Product) => {
   return (
     <div className=" basis-auto lg:w-1/5  md:w-1/3 w-1/2 px-[5px] ">
-      <Link to={`/product/${props.id}`}>
-        <div className="group ">
-          <div className="mb-[20px] relative bg-[#fff] border-[1px] border-[#ececec] rounded-[15px] overflow-hidden transition ">
-            {/* Image */}
-            <div className="overflow-hidden px-[25px] pt-[25px] ">
-              <div className="overflow-hidden rounded-[15px] relative  aspect-square">
-                <img
-                  src={props.images[0]}
-                  alt=""
-                  className="w-full h-full max-w-full group-hover:hidden  transition  "
-                />
-                <img
-                  src={props.images[1]}
-                  alt=""
-                  className="w-full h-full max-w-full hidden group-hover:block transition "
-                />
-              </div>
+      <div className="group ">
+        <div className="mb-[20px] relative bg-[#fff] border-[1px] border-[#ececec] rounded-[15px] overflow-hidden transition ">
+          {/* Image */}
+          <div className="overflow-hidden px-[25px] pt-[25px] ">
+            <div className="overflow-hidden rounded-[15px] relative  aspect-square">
+              <img
+                src={props.images[0]}
+                alt=""
+                className="w-full h-full max-w-full group-hover:hidden  transition  "
+              />
+              <img
+                src={props.images[1]}
+                alt=""
+                className="w-full h-full max-w-full hidden group-hover:block transition "
+              />
             </div>
-            {/* Details */}
-            <div className="px-[20px] pb-[20px] min-h-[250px] flex flex-col justify-between  ">
+          </div>
+          {/* Details */}
+          <div className="px-[20px] pb-[20px] min-h-[250px] flex flex-col justify-between  ">
+            <Link to={`/product/${props.id}`} className="flex-1">
               {/* Category */}
               <div className="mb-[5px] ">
                 <span className="text-[12px] text-secondary-content ">
@@ -51,32 +51,35 @@ const ProductCard = (props: Product) => {
                   By <span className="text-primary">{props.seller}</span>
                 </span>
               </div>
+            </Link>
 
-              {/* Price & Cart Section */}
-              <div className="flex justify-between mt-[12px] max-sm:flex-col max-sm:gap-2 lg:flex-wrap">
-                {/* Price */}
-                <div className="pt-[5px] flex items-end">
-                  <span className="mr-[4px] text-[18px] text-primary font-bold">
-                    ₹{props.price}
+            {/* Price & Cart Section */}
+            <div className="flex justify-between mt-[12px] max-sm:flex-col max-sm:gap-2 lg:flex-wrap">
+              {/* Price */}
+              <div className="pt-[5px] flex items-end">
+                <span className="mr-[4px] text-[18px] text-primary font-bold">
+                  ₹{props.price}
+                </span>
+                <span className="text-[14px] pb-[1px] text-secondary-content line-through">
+                  ₹{props.mrp}
+                </span>
+              </div>
+              {/* Add Cart */}
+              <div
+                className="cursor-pointer"
+                onClick={() => console.log("add to acrt")}
+              >
+                <div className="w-[76px] h-[40px] max-sm:w-full max-sm:h-[36px] bg-primary-bg relative py-[6px] px-[13px]  text-primary flex rounded-md items-center max-sm:justify-center">
+                  <MdOutlineAddShoppingCart className="w-[20px] h-[20px] text-[15px] max-sm:hidden" />
+                  <span className="whitespace-nowrap font-bold max-sm:text-[12px] ">
+                    Add <span className="hidden max-sm:inline">to cart</span>
                   </span>
-                  <span className="text-[14px] pb-[1px] text-secondary-content line-through">
-                    ₹{props.mrp}
-                  </span>
-                </div>
-                {/* Add Cart */}
-                <div className="cursor-pointer">
-                  <div className="w-[76px] h-[40px] max-sm:w-full max-sm:h-[36px] bg-primary-bg relative py-[6px] px-[13px]  text-primary flex rounded-md items-center max-sm:justify-center">
-                    <MdOutlineAddShoppingCart className="w-[20px] h-[20px] text-[15px] max-sm:hidden" />
-                    <span className="whitespace-nowrap font-bold max-sm:text-[12px] ">
-                      Add <span className="hidden max-sm:inline">to cart</span>
-                    </span>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </Link>
+      </div>
     </div>
   );
 };

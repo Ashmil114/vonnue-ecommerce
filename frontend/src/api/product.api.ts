@@ -52,10 +52,16 @@ export type ProductDetail = {
   user_review: IsReviewed;
 };
 
-export const products = () => {
+export const getProducts = ({
+  search = "",
+  category = "",
+}: {
+  search?: string;
+  category?: string;
+}) => {
   return new Promise<Product[]>((resolve, reject) => {
     api
-      .get("products/")
+      .get(`products/?search=${search}&category=${category}`)
       .then((res) => {
         resolve(res.data);
       })

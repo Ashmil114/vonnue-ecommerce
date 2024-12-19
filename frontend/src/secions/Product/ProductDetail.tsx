@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import Stars from "../../components/Home/Stars";
@@ -19,11 +19,13 @@ const ProductDetail = () => {
     queryFn: () => productDetail({ id: id! }),
     enabled: id !== null,
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (data?.images) {
       setPimage(data.images);
     }
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [data]);
   // console.log(data);
   return (
@@ -115,9 +117,16 @@ const ProductDetail = () => {
                     <div className=" ">
                       <span className=" text-secondary-content text-[16px]">
                         {data?.category}{" "}
-                        {/* <a className="underline text-blue-700 text-[14px]">
+                        <a
+                          className="underline text-blue-700 text-[14px] cursor-pointer"
+                          onClick={() =>
+                            navigate("/", {
+                              state: { category: data?.category },
+                            })
+                          }
+                        >
                           [more]
-                        </a> */}
+                        </a>
                       </span>
                     </div>
                     {/* Seller */}

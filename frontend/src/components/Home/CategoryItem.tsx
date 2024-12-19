@@ -3,15 +3,20 @@ type categoryItem = {
   img: string;
   title: string;
   items: number;
+  action: (title: string) => void;
+  all?: boolean;
+  enabled?: string;
 };
 const CategoryItem = (props: categoryItem) => {
   const color = Math.floor(Math.random() * CATEGORY_CARD_COLORS.length);
-
   return (
     <div className="min-h-[180px] mr-[20px] ">
       <div
-        className={`flex items-center flex-wrap justify-center relative text-center rounded-[10px] pt-[20px] pb-[18px] border-[1px] border-[#F4F6FA]  hover:border-primary  min-w-[150px] group h-full`}
+        className={`flex items-center flex-wrap justify-center relative text-center rounded-[10px] pt-[20px] pb-[18px] border-[1px] border-[#F4F6FA]  hover:border-primary  min-w-[150px] group h-full cursor-pointer ${
+          props.enabled === props.title ? "border-primary" : null
+        } `}
         style={{ backgroundColor: CATEGORY_CARD_COLORS[color] }}
+        onClick={() => props.action(props.all ? "" : props.title)}
       >
         {/* image */}
         <div className="mb-[20px] group-hover:scale-105 transition  ">
