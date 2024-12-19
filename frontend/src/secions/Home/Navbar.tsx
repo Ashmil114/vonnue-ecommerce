@@ -1,5 +1,5 @@
 import { TiShoppingCart } from "react-icons/ti";
-import { PiUserBold } from "react-icons/pi";
+// import { PiUserBold } from "react-icons/pi";
 import { AiOutlineLogout } from "react-icons/ai";
 import NavItem from "../../components/Home/NavItem";
 import { BiHomeAlt2 } from "react-icons/bi";
@@ -43,10 +43,10 @@ const Navbar = () => {
             label="Cart"
             indicator={true}
             indicatorCount={cart.length}
-            // action={() => navigate("/cart")}
+            action={() => navigate("/cart")}
           />
           {/* User Account */}
-          <NavItem icon={PiUserBold} label="Account" />
+          {/* <NavItem icon={PiUserBold} label="Account" /> */}
           {/* Logout */}
           <NavItem
             icon={AiOutlineLogout}

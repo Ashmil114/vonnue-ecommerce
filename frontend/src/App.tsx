@@ -5,6 +5,7 @@ import ProtectedRoute from "./providers/ProtectedRoute";
 import AxiosProvider from "./providers/AxiosProvider";
 import Navbar from "./secions/Home/Navbar";
 import ProductDetail from "./secions/Product/ProductDetail";
+import Cart from "./secions/Cart/Cart";
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
             }
           />
           <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </BrowserRouter>
     </AxiosProvider>
