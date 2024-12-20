@@ -1,5 +1,14 @@
 from django.urls import path
-from .views import ping, Products, Product, Categories, Reviews, Review,ReviewSet, DeleteReview
+from .views import (
+    ping,
+    Products,
+    Product,
+    Categories,
+    Reviews,
+    Review,
+    ReviewSet,
+    DeleteReview,
+)
 
 
 urlpatterns = [

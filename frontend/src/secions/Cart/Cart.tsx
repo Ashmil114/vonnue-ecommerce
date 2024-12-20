@@ -37,10 +37,10 @@ const Cart = () => {
         <div className="w-full h-[300px] text-primary font-semibold text-[26px] flex justify-center items-center flex-col">
           <div className="">No products on Cart</div>
           <span
-            className="btn btn-link text-blue-500 text-lg"
+            className="btn btn-link text-blue-500 text-sm"
             onClick={() => navigate("/")}
           >
-            shop now
+            countinue shopping
           </span>
         </div>
       )}
@@ -73,18 +73,18 @@ const Cart = () => {
                   </td>
 
                   <td>
-                    <div className="cursor-pointer flex items-center gap-3 text-white">
+                    <div className="cursor-pointer flex items-center gap-3 text-secondary font-bold text-lg">
                       <div
-                        className="w-[35px] h-[40px] max-sm:w-full max-sm:h-[36px] bg-red-500 relative py-[6px] px-[13px]   flex rounded-md items-center max-sm:justify-center"
+                        className="w-[35px] h-[40px] max-sm:w-full max-sm:h-[36px] hover:bg-red-300 relative py-[6px] px-[13px]   flex items-center max-sm:justify-center rounded-full"
                         onClick={() => removeItem(item.product)}
                       >
                         -
                       </div>
-                      <span className="whitespace-nowrap font-bold text-secondary max-sm:text-[12px] ">
+                      <span className="whitespace-nowrap font-bold text-secondary max-sm:text-[12px] text-[25px]">
                         {item.quantity}
                       </span>
                       <div
-                        className="w-[35px] h-[40px] max-sm:w-full max-sm:h-[36px] bg-primary relative py-[6px] px-[13px]   flex rounded-md items-center max-sm:justify-center"
+                        className="w-[35px] h-[40px] max-sm:w-full max-sm:h-[36px] hover:bg-primary-bg relative py-[6px] px-[13px]   flex rounded-full items-center max-sm:justify-center"
                         onClick={() => addItem(item.product)}
                       >
                         +
@@ -98,6 +98,7 @@ const Cart = () => {
         </table>
         {cart.length > 0 && (
           <div className="lg:mr-[100px] mt-[30px] text-[24px] text-secondary">
+            <div className=""></div>
             <div className="flex items-center gap-5 justify-end ">
               <div className="flex gap-5 w-[300px] justify-between">
                 <div className="  ">Items</div>

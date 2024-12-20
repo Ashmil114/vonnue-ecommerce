@@ -9,15 +9,19 @@ class Command(BaseCommand):
     help = "Creates application data"
 
     def handle(self, *args, **kwargs):
-        category = tb_product_category.objects.filter(name="Baking material").first()
+        category = tb_product_category.objects.filter(
+            name="Biscuits & Chocolates"
+        ).first()
         if not category:
-            self.stdout.write(self.style.ERROR("Category 'Baking materia' not found."))
+            self.stdout.write(
+                self.style.ERROR("Category 'Biscuits & Chocolates' not found.")
+            )
             return
 
         products = tb_product.objects.filter(category=category)
 
         # Directory to save the downloaded images
-        placeholders_dir = "media/placeholders/Baking"
+        placeholders_dir = "media/placeholders/Biscuits"
         os.makedirs(placeholders_dir, exist_ok=True)
 
         # Dictionary of sample image URLs based on product names

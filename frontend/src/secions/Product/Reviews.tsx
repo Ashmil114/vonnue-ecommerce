@@ -6,6 +6,7 @@ import { IsReviewed, RatingSet, reviews } from "../../api/product.api";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
 import ReviewCard from "../../components/Product/ReviewCard";
+import Loading from "../../components/shared/Loading";
 
 // import Stars from "../../components/Home/Stars";
 
@@ -56,7 +57,9 @@ const Reviews = (props: {
                   <ReviewCard {...r} key={r.id} />
                 ))} */}
                 {status === "pending" ? (
-                  <p>Loading...</p>
+                  <p>
+                    <Loading />
+                  </p>
                 ) : status === "error" ? (
                   <p>Error: {error?.message}</p>
                 ) : (
@@ -80,11 +83,13 @@ const Reviews = (props: {
                     onClick={() => fetchNextPage()}
                     disabled={!hasNextPage || isFetchingNextPage}
                   >
-                    {isFetchingNextPage
-                      ? "Loading more..."
-                      : hasNextPage
-                      ? "See More"
-                      : "Nothing more"}
+                    {isFetchingNextPage ? (
+                      <Loading />
+                    ) : hasNextPage ? (
+                      "See More"
+                    ) : (
+                      "Nothing more"
+                    )}
                   </button>
                 </div>
               </div>

@@ -51,7 +51,7 @@ const ProductCard = (props: Product) => {
                 </span>
               </div>
               {/* title */}
-              <h2 className="mb-[11px] text-[16px] font-bold leading-[1.2] text-secondary">
+              <h2 className="mb-[11px] text-[16px] font-bold leading-[1.2] text-secondary  line-clamp-2">
                 {props.name}
               </h2>
               {/* Rating */}
@@ -72,7 +72,7 @@ const ProductCard = (props: Product) => {
             </Link>
 
             {/* Price & Cart Section */}
-            <div className="flex justify-between mt-[12px] flex-col gap-2 lg:flex-row lg:flex-wrap">
+            <div className="flex justify-between mt-[12px] flex-col gap-2 lg:flex-row lg:flex-wrap ">
               {/* Price */}
               <div className="pt-[5px] flex items-end">
                 <span className="mr-[4px] text-[18px] text-primary font-bold">

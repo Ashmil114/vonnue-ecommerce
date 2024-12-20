@@ -10,6 +10,7 @@ import { productDetail } from "../../api/product.api";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Cart, useCart } from "../../store/cartStore";
+import Loading from "../../components/shared/Loading";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -60,7 +61,9 @@ const ProductDetail = () => {
   return (
     <div className="  top-margin">
       {isLoading ? (
-        <p>Loading...</p>
+        <p>
+          <Loading />
+        </p>
       ) : (
         <div>
           <div className="custom-container">

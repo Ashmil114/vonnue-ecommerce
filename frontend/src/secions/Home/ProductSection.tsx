@@ -4,6 +4,7 @@ import Title from "../../components/shared/Title";
 import { getProducts } from "../../api/product.api";
 import { useProduct } from "../../store/productStore";
 import { useEffect } from "react";
+import Loading from "../../components/shared/Loading";
 const ProductSection = () => {
   const { products, setProducts } = useProduct();
   const { data } = useQuery({
@@ -19,7 +20,7 @@ const ProductSection = () => {
     <div className="mt-[35px] ">
       <Title
         title="Popular Products"
-        extra="text-[32px]"
+        extra="md:text-[32px] text-[22px]"
         count={products?.length}
       />
       <div className="flex  flex-wrap ">
@@ -29,7 +30,9 @@ const ProductSection = () => {
           </p>
         )}
         {!Array.isArray(products) ? (
-          <div>Loading...</div>
+          <div>
+            <Loading />
+          </div>
         ) : (
           products.map((product) => (
             // <ProductCard

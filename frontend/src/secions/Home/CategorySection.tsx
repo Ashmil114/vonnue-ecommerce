@@ -6,6 +6,7 @@ import { useProduct } from "../../store/productStore";
 import { useEffect, useState } from "react";
 import { getProducts } from "../../api/product.api";
 import { useLocation } from "react-router-dom";
+import Loading from "../../components/shared/Loading";
 const CategorySection = () => {
   const { setProducts } = useProduct();
   const [category, setCategory] = useState("");
@@ -43,7 +44,7 @@ const CategorySection = () => {
     <div>
       <Title
         title={`${category ? category : "Featured Categories"}`}
-        extra="text-[32px]"
+        extra="md:text-[32px] text-[22px]"
       />
       <div className="mb-[15px] flex flex-nowrap overflow-x-scroll category-scroll ">
         <CategoryItem
@@ -56,7 +57,9 @@ const CategorySection = () => {
         />
 
         {isLoading ? (
-          <div>Loading...</div>
+          <div>
+            <Loading />
+          </div>
         ) : (
           categoryData?.map((item) => (
             <CategoryItem

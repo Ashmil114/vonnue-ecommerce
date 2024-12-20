@@ -24,11 +24,16 @@ class ping(APIView):
 
 
 class Products(generics.ListAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = tb_product.objects.all()
     serializer_class = ProductsSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ProductFilter
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.annotate(rating_count=Count("reviews__rating"))
+        return queryset.order_by("-rating_count")
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
