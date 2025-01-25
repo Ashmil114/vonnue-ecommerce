@@ -1,4 +1,4 @@
-# E-Commerce Website
+# E-Commerce Website 
 
 This is a full-stack e-commerce web application built using modern technologies. The frontend is developed with React, TypeScript, Tailwind CSS, and TanStack Query, with state management handled by Zustand. The backend is powered by Django REST Framework with JWT Authentication, and PostgreSQL is used as the database.
 
@@ -13,7 +13,7 @@ This is a full-stack e-commerce web application built using modern technologies.
 
 ## Tech Stack
 
-**Frontend:**
+**Frontend: **
 
 - React
 - TypeScript
